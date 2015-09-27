@@ -17,8 +17,6 @@ int choice;
 int color;
 int n;
 bool playAgain =true;
-int blackBalls [18] ={2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33 ,35};
-int redBalls [18] = { 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36};
 string red ("red");
 string black ("black");
 string yes ("yes");
@@ -43,14 +41,17 @@ if( randomNumber%2 == 0) //:if the remainder of bet divided by 2 is 0 it is true
 
     vinst = summa+startsumma;
 
-    cout << "Even number! You have : "; cout << vinst; cout << " to play for!";
+    cout << "You won! You have : "; cout << vinst; cout << " to play for!";
      cout << "\n";
-    cout << "Do you want to play again?";
-    cout << "\n";
+
+    startsumma=vinst;
 if(yes=="yes")
 {
+    cout << "Do you want to play again?";
+    cout << "\n";
     cin >> yes;
     playAgain =true;
+
 }
 
 
@@ -60,10 +61,12 @@ else {
   vinst = startsumma-summa;
 cout << "You lost! Your have :"; cout << vinst; cout << "left";
  cout << "\n";
-    cout << "Do you want to play again?";
-    cout << "\n";
+
+    startsumma=vinst;
 if(yes=="yes")
 {
+      cout << "Do you want to play again?";
+    cout << "\n";
     cin >> yes;
     playAgain =true;
 
@@ -81,6 +84,7 @@ int randomNumber = 1 + (rand() % 36);
 
 
 cout << "the ball is " << randomNumber << ".";
+cout << "\n";
 if( randomNumber%2 != 0) //:if the remainder of bet divided by 2 is 0 it is true (if it is zero it means it is a number like 2 ,10 ,16, 48 and not 3, 11, 27,99
 {
 
@@ -88,14 +92,17 @@ if( randomNumber%2 != 0) //:if the remainder of bet divided by 2 is 0 it is true
 
     vinst = summa+startsumma;
 
-    cout << "Odd number! You have : "; cout << vinst; cout << " to play for!";
 
-     cout << "\n";
-    cout << "Do you want to play again?";
+    cout << "You won! You have : "; cout << vinst; cout << " to play for!";
     cout << "\n";
+
+
+    startsumma=vinst;
 if(yes=="yes")
 {
-
+cout << "\n";
+    cout << "Do you want to play again?";
+    cout << "\n";
     cin >> yes;
     playAgain =true;
 }
@@ -106,12 +113,14 @@ else {
 
   vinst = startsumma-summa;
 cout << "You lost! Your have :"; cout << vinst; cout << "left";
+cout << "\n";
+
+    startsumma=vinst;
+if(yes=="yes")
+{
  cout << "\n";
     cout << "Do you want to play again?";
     cout << "\n";
-if(yes=="yes")
-{
-
     cin >> yes;
     playAgain =true;
 
@@ -124,39 +133,49 @@ if(yes=="yes")
 void numberPlay()
 {
     cout << "the ball is " << randomNumber << ".";
+    cout << "\n";
     if(randomNumber==number)
     {
         cout << "Correct number! You have : "; cout << vinst; cout << " to play for!";
+        cout << "\n";
         vinst =summa*10;
         cout << vinst;
 
-         cout << "\n";
-    cout << "Do you want to play again?";
-    cout << "\n";
+
+    startsumma=vinst;
 
     }
     if(yes=="yes")
 {
-
+    cout << "\n";
+    cout << "Do you want to play again? 'yes'/'no'";
+    cout << "\n";
     cin >> yes;
     playAgain =true;
 }
+
 
  else
     {
-        cout << "You lost";
-        vinst=summa-summa;
-        cout << vinst;
-
          cout << "\n";
-    cout << "Do you want to play again?";
-    cout << "\n";
+        vinst=startsumma-summa;
+            startsumma=vinst;
+       cout << "You lost! Your have :"; cout << vinst; cout << "left";
+
+
+
+
+
     }
     if(yes=="yes")
 {
+    cout << "\n";
+    cout << "Do you want to play again? 'yes'/'no'";
+    cout << "\n";
     cin >> yes;
     playAgain =true;
 }
+
 }
 
 int main()
@@ -164,12 +183,20 @@ int main()
 
 srand(time(0));
 
-while (playAgain == true)
+
+while (playAgain == true )
    {
+ if(startsumma==0)
+       {
+           cout << ". Sorry you are out of money.";
+
+          return 0;
+       }
+cout << "\n";
            cout << "Bet 100,300 or 500 ";
     cin>> summa;
 
-    while(summa !=100 && summa !=300 && summa !=500)
+    while(summa >startsumma || summa !=100 && summa !=300 && summa !=500)
     {
         cout<< "Choose to play for 100,300 or 500kr.";
         cin >> summa;
@@ -231,15 +258,3 @@ cin >> yes || cin >> no;
 
 
 }
-
-
-
-
-
-    //rngQuestion= 1 + (rand() % 36);
-
-
-
-
-
-    //cout << RandomBall;
